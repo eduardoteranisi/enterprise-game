@@ -4,6 +4,7 @@ import { startGameLoop } from './core/gameLoop'
 import { createInitialState } from './core/state'
 import { updateEconomy } from './economy/economy'
 import { updateEmployees } from './employees/employees'
+import { updateEvents } from './events/events'
 import { renderHud } from './ui/hud'
 
 const canvas = document.querySelector<HTMLCanvasElement>('#game-canvas')!
@@ -23,6 +24,7 @@ const square = {
 function update(deltaSeconds: number): void {
   updateEconomy(state, deltaSeconds)
   updateEmployees(state, deltaSeconds)
+  updateEvents(state, deltaSeconds)
 
   square.x += square.speed * deltaSeconds
   square.y = canvas.height / 2 - square.size / 2
