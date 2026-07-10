@@ -3,13 +3,23 @@ import { setupCanvas } from './core/canvas'
 import { startGameLoop } from './core/gameLoop'
 import { createInitialState } from './core/state'
 import { updateEconomy } from './economy/economy'
-import { updateEmployees } from './employees/employees'
+import { updateEmployees, hireEmployee } from './employees/employees'
 import { updateEvents } from './events/events'
-import { renderHud } from './ui/hud'
+import { renderHud, isPointInHireButton } from './ui/hud'
 
 const canvas = document.querySelector<HTMLCanvasElement>('#game-canvas')!
 const ctx = setupCanvas(canvas)
 const state = createInitialState()
+
+canvas.addEventListener('click', (event) => {
+  const rect = canvas.getBoundingClientRect()
+  const x = event.clientX - rect.left
+  const y = event.clientY - rect.top
+
+  if (isPointInHireButton(canvas.width, x, y)) {
+    hireEmployee(state)
+  }
+})
 
 // Proof of concept: a square moving left to right, just to confirm
 // the game loop (requestAnimationFrame) works.

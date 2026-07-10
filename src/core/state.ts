@@ -18,6 +18,8 @@ export interface GameState {
 
 const INITIAL_CASH = 10_000
 
+export const HIRE_COST = 500
+
 export function createInitialState(): GameState {
   return {
     cash: INITIAL_CASH,
@@ -25,4 +27,14 @@ export function createInitialState(): GameState {
     eventTimer: 0,
     lastEvent: null,
   }
+}
+
+export function contratarFuncionario(state: GameState, employee: Employee): boolean {
+  if (state.cash < HIRE_COST) {
+    return false
+  }
+
+  state.cash -= HIRE_COST
+  state.employees.push(employee)
+  return true
 }
