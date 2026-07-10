@@ -3,6 +3,7 @@ import { setupCanvas } from './core/canvas'
 import { startGameLoop } from './core/gameLoop'
 import { createInitialState } from './core/state'
 import { updateEconomy } from './economy/economy'
+import { renderHud } from './ui/hud'
 
 const canvas = document.querySelector<HTMLCanvasElement>('#game-canvas')!
 const ctx = setupCanvas(canvas)
@@ -33,6 +34,8 @@ function render(): void {
   ctx.clearRect(0, 0, canvas.width, canvas.height)
   ctx.fillStyle = square.color
   ctx.fillRect(square.x, square.y, square.size, square.size)
+
+  renderHud(ctx, state)
 }
 
 startGameLoop(update, render)
